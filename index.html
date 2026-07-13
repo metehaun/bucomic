@@ -12,7 +12,8 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            background-color: #ffffff;
+            background-color: #0b0f19; /* Koyu lacivert/siyah arka plan */
+            color: #ffffff; /* Beyaz ana metin */
             font-family: system-ui, -apple-system, sans-serif;
             padding: 20px;
             box-sizing: border-box;
@@ -32,6 +33,7 @@
             width: auto;
             display: block;
             cursor: pointer;
+            filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.3)); /* Logoya hafif mavi parlama */
         }
         .nav-container {
             display: flex;
@@ -39,20 +41,26 @@
         }
         .nav-btn {
             text-decoration: none;
-            color: #555;
-            border: 1px solid #ccc;
+            color: #9cb3c9; /* Açık mavi/gri yazı */
+            border: 1px solid #1e293b; /* Koyu lacivert çerçeve */
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
             transition: all 0.2s;
             cursor: pointer;
-            background: none;
+            background: #111827; /* Koyu siyah/mavi buton arka planı */
             outline: none;
         }
-        .nav-btn:hover, .nav-btn.active {
-            background-color: #000;
-            color: #fff;
-            border-color: #000;
+        .nav-btn:hover {
+            background-color: #0066ff; /* Parlak mavi hover */
+            color: #ffffff;
+            border-color: #0066ff;
+            box-shadow: 0 0 12px rgba(0, 102, 255, 0.5);
+        }
+        .nav-btn.active {
+            background-color: #0066ff; /* Aktif buton mavi */
+            color: #ffffff;
+            border-color: #0066ff;
         }
 
         /* Sayfa geçişleri için kapsayıcı */
@@ -85,7 +93,8 @@
             font-size: 10vw;
             font-weight: 900;
             letter-spacing: -2px;
-            color: #000000;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.4); /* Yazıya mavi gölge */
             margin: 0;
         }
 
@@ -94,12 +103,14 @@
             font-size: 5vw;
             font-weight: 900;
             margin-bottom: 20px;
+            color: #0066ff; /* Başlıklar parlak mavi */
         }
         .page img.komik-resim {
             max-width: 90%;
             max-height: 60vh;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2); /* Görsele mavi gölge */
+            border: 1px solid #1e293b;
         }
         
         /* YouTube iframe stili */
@@ -114,12 +125,13 @@
             width: 100%;
             height: 100%;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2); /* Videoya mavi gölge */
+            border: 1px solid #1e293b;
         }
 
         footer {
             font-size: 12px;
-            color: #888;
+            color: #4b5563; /* Koyu gri alt yazı */
             z-index: 10;
         }
 
@@ -133,11 +145,12 @@
 
     <!-- Üst Başlık (Logo ve Menü) -->
     <header>
+        <!-- Logoya tıklandığında anasayfa (page1) açılır -->
         <div class="logo" onclick="showPage('page1')">
             <img src="logo.png" alt="Logo">
         </div>
+        <!-- Menü alanı -->
         <div class="nav-container">
-            <button class="nav-btn active" id="btn-page1" onclick="showPage('page1')">Anasayfa</button>
             <button class="nav-btn" id="btn-page2" onclick="showPage('page2')">Gerçekten Komik</button>
             <button class="nav-btn" id="btn-page3" onclick="showPage('page3')">Bu da Çok İyi</button>
         </div>
