@@ -26,7 +26,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 10;
+            z-index: 9999; /* Menünün her şeyin üstünde kalması için yükseltildi */
+            position: relative;
         }
         .logo img {
             height: 80px;
@@ -38,6 +39,7 @@
         .nav-container {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
         .nav-btn {
             text-decoration: none;
@@ -51,16 +53,53 @@
             background: #111827; /* Koyu siyah/mavi buton arka planı */
             outline: none;
         }
-        .nav-btn:hover {
-            background-color: #0066ff; /* Parlak mavi hover */
+        .nav-btn:hover, .nav-btn.active {
+            background-color: #0066ff; /* Parlak mavi hover ve aktif */
             color: #ffffff;
             border-color: #0066ff;
             box-shadow: 0 0 12px rgba(0, 102, 255, 0.5);
         }
-        .nav-btn.active {
-            background-color: #0066ff; /* Aktif buton mavi */
+
+        /* Açılır Menü (Dropdown) Kapsayıcısı */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: #111827;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 5px 0; /* İç boşluk eklenerek butonların oturması sağlandı */
+            z-index: 10000;
+            overflow: hidden;
+        }
+        .dropdown-content button {
+            color: #9cb3c9;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .dropdown-content button:hover {
+            background-color: #0066ff;
             color: #ffffff;
-            border-color: #0066ff;
+        }
+        
+        /* Hover durumunda menüyü göster ve fare geçişindeki boşluğu koru */
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
         /* Sayfa geçişleri için kapsayıcı */
@@ -70,46 +109,77 @@
             justify-content: center;
             align-items: center;
             width: 100%;
+            z-index: 1;
         }
 
         /* Varsayılan olarak tüm sayfaları gizle */
         .page {
             display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             width: 100%;
             animation: fadeIn 0.3s ease;
         }
 
         /* Aktif olan sayfayı göster */
         .page.active {
-            display: flex;
+            display: block;
         }
 
-        /* Sayfa 1 stili */
+        /* Ortalanmış ve Sola Dayalı Konteyner (Container) */
+        .content-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(17, 24, 39, 0.6); /* Şeffaf koyu arka plan */
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            text-align: left; /* Yazıları sola dayar */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Sayfa 1 stili (Büyük Başlık için Özel Ayar) */
+        #page1 .content-container {
+            text-align: center; /* Sadece ana sayfa başlığı ortada kalsın */
+            background: none;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+        }
         #page1 h1 {
             font-size: 10vw;
             font-weight: 900;
             letter-spacing: -2px;
             color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 102, 255, 0.4); /* Yazıya mavi gölge */
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
             margin: 0;
         }
 
         /* Diğer Sayfa Başlıkları */
         .page h2 {
-            font-size: 5vw;
+            font-size: 3rem;
             font-weight: 900;
+            margin-top: 0;
             margin-bottom: 20px;
             color: #0066ff; /* Başlıklar parlak mavi */
         }
+        .page p {
+            color: #9cb3c9;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        /* Görsel ve Video Ortalama Ayarı (Container içinde) */
+        .media-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
         .page img.komik-resim {
-            max-width: 90%;
-            max-height: 60vh;
+            max-width: 100%;
+            max-height: 55vh;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2); /* Görsele mavi gölge */
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2);
             border: 1px solid #1e293b;
         }
         
@@ -118,36 +188,14 @@
             width: 100%;
             max-width: 640px;
             aspect-ratio: 16 / 9;
-            padding: 0 20px;
             box-sizing: border-box;
         }
         .video-container iframe {
             width: 100%;
             height: 100%;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2); /* Videoya mavi gölge */
+            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2);
             border: 1px solid #1e293b;
-        }
-
-        /* Hakkında Alt Sayfa Butonları */
-        .sub-nav-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .sub-content {
-            width: 100%;
-            max-width: 600px;
-            animation: fadeIn 0.2s ease;
-        }
-        .sub-content h3 {
-            color: #ffffff;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .sub-content p {
-            color: #9cb3c9;
-            line-height: 1.6;
         }
 
         footer {
@@ -174,63 +222,77 @@
         <div class="nav-container">
             <button class="nav-btn" id="btn-page2" onclick="showPage('page2')">Gerçekten Komik</button>
             <button class="nav-btn" id="btn-page3" onclick="showPage('page3')">Bu da Çok İyi</button>
-            <button class="nav-btn" id="btn-page4" onclick="showPage('page4')">Hakkında</button>
+            
+            <!-- Hakkında Dropdown Menü -->
+            <div class="dropdown">
+                <button class="nav-btn" id="btn-dropdown-hakkinda">Hakkında</button>
+                <div class="dropdown-content">
+                    <button onclick="showPage('page-yonetim')">Yönetim Kurulu</button>
+                    <button onclick="showPage('page-letisim')">İletişim</button>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Tek Dosyadaki Tüm Sayfalar -->
     <div class="page-container">
         
-        <!-- SAYFA 1 -->
+        <!-- SAYFA 1 (Ana Sayfa) -->
         <div id="page1" class="page active">
-            <h1>bu komik</h1>
+            <div class="content-container">
+				<img src="bukomik.jpeg" alt="Merkez Logo" style="max-width: 250px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.4));">
+                <h1>taha ercoskun</h1>
+            </div>
         </div>
 
         <!-- SAYFA 2 -->
         <div id="page2" class="page">
-            <h2>bu gerçekten komik</h2>
-            <img class="komik-resim" src="komik.jpeg" alt="Komik Fotoğraf">
+            <div class="content-container">
+                <h2>aaaaaaaaaaa</h2>
+                <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <div class="media-wrapper">
+                    <img class="komik-resim" src="komik.jpeg" alt="Komik Fotoğraf">
+                </div>
+            </div>
         </div>
 
         <!-- SAYFA 3 -->
         <div id="page3" class="page">
-            <h2>bu da çok iyi</h2>
-            <!-- YouTube Embed Alanı -->
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/Ui-L23fcjDQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="content-container">
+                <h2>bbsbb</h2>
+                <p>bbbbbbbbbbbbbbbbb</p>
+                <!-- YouTube Embed Alanı -->
+                <div class="media-wrapper">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Ui-L23fcjDQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- SAYFA 4 (Hakkında) -->
-        <div id="page4" class="page">
-            <h2>Hakkında</h2>
-            
-            <!-- Alt Butonlar -->
-            <div class="sub-nav-container">
-                <button class="nav-btn active" id="btn-yonetim" onclick="showSubContent('yonetim')">Yönetim Kurulu</button>
-                <button class="nav-btn" id="btn-iletisim" onclick="showSubContent('iletisim')">İletişim</button>
+        <!-- YÖNETİM KURULU SAYFASI -->
+        <div id="page-yonetim" class="page">
+            <div class="content-container">
+                <h2 style="font-size: 3.5rem; font-weight: 900; margin-top: 0; margin-bottom: 25px; color: #0066ff;">Yönetim Kurulu</h2>
+				<p style="font-weight: bold; font-size: 18px; margin-bottom: 5px; color: #9cb3c9;">2026-2027</p>
+                <p><strong>Başkan:</strong> Yiğitcan Keleş</p>
+                <p><strong>Başkan Yardımcısı:</strong> Metehan Baykuş</p>
+                <p><strong>Yazman:</strong> Metehan Baykuş</p>
+				<p><strong>Sayman:</strong> Yiğitcan Keleş</p>
+				<p><strong>Sosyal Medya Sorumlusu:</strong> Nisa Nisa</p>
+				<p><strong>Çaylaklar Atölyesi Sorumsuzu:</strong> Aydın Aydın</p>
+				<p><strong>Üye:</strong> Görkem Görkem, Kahraman Kahraman</p>
+				<p style="font-weight: bold; font-size: 25px; margin-bottom: 5px; margin-top: 50px; color: #9cb3c9;">Kurucu Kurul</p>
+				<p><strong>Başkan:</strong> Taha Ercoşkun</p>
             </div>
+        </div>
 
-            <!-- Yönetim Kurulu İçeriği (Burayı dilediğin gibi düzenleyebilirsin) -->
-            <div id="content-yonetim" class="sub-content" style="display: block;">
-                <h3>Yönetim Kurulu</h3>
-                <p>Kalbimizde yaşayacaksın Taha Ercoşkun</p>
-                <p>Başkan: Yiğitcan Keleş</p>
-                <p>Başkan Yardımcısı: Metehan Baykuş</p>
-                <p>Yazman: Metehan Baykuş</p>
-                <p>Sayman: Yiğitcan Keleş</p>
-                <p>Sosyal Medya Sorumlusu: Nisa Nisa</p>
-                <p>Çaylaklar Atolyesi Sorumlusu: Aydın Aydın</p>
-                <p>Üye:Görkem Görkem, Kahraman Kahraman, Akif Akif</p>
-                
-            </div>
-
-            <!-- İletişim İçeriği -->
-            <div id="content-iletisim" class="sub-content" style="display: none;">
-                <h3>İletişim</h3>
+        <!-- İLETİŞİM SAYFASI -->
+        <div id="page-iletisim" class="page">
+            <div class="content-container">
+                <h2>İletişim</h2>
                 <p>Bizimle iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz:</p>
-                <p>E-posta: yk@bucomic.com</p>
-                <p>Instagram: @Bogazicikomdeifalan filan</p>
+                <p><strong>E-posta:</strong> yk@bucomic.com</p>
             </div>
         </div>
 
@@ -254,46 +316,22 @@
                 selectedPage.classList.add('active');
             }
 
-            // Menü butonlarındaki aktiflik sınıfını güncelle
-            const buttons = document.querySelectorAll('.nav-container .nav-btn');
+            // Üst menü butonlarındaki aktiflik sınıfını güncelle
+            const buttons = document.querySelectorAll('.nav-container > .nav-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            const activeSubBtn = document.getElementById('btn-' + pageId);
-            if (activeSubBtn) {
-                activeSubBtn.classList.add('active');
-            }
-
-            // Eğer Hakkında sayfasına geri dönülürse alt sekmeyi varsayılan olarak Yönetim Kurulu yap
-            if (pageId === 'page4') {
-                showSubContent('yonetim');
-            }
-        }
-
-        // Hakkında sayfasındaki alt butonların geçişi
-        function showSubContent(subId) {
-            // Tüm alt içerikleri gizle
-            const contents = document.querySelectorAll('.sub-content');
-            contents.forEach(content => {
-                content.style.display = 'none';
-            });
-
-            // Seçilen alt içeriği göster
-            const selectedContent = document.getElementById('content-' + subId);
-            if (selectedContent) {
-                selectedContent.style.display = 'block';
-            }
-
-            // Alt butonların aktiflik stilini güncelle
-            const subButtons = document.querySelectorAll('.sub-nav-container .nav-btn');
-            subButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            const activeBtn = document.getElementById('btn-' + subId);
-            if (activeBtn) {
-                activeBtn.classList.add('active');
+            // Eğer açılan sayfa dropdown içindeyse Hakkında butonunu aktif yap
+            const dropdownBtn = document.getElementById('btn-dropdown-hakkinda');
+            if (pageId === 'page-yonetim' || pageId === 'page-iletisim') {
+                dropdownBtn.classList.add('active');
+            } else {
+                dropdownBtn.classList.remove('active');
+                const activeBtn = document.getElementById('btn-' + pageId);
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                }
             }
         }
     </script>
