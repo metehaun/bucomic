@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BUKomik</title>
     <style>
+        /* Renk Değişkenleri (Temalar) */
+        :root {
+            --bg-color: #0b0f19; /* Koyu Tema Arka Plan */
+            --text-color: #ffffff;
+            --sub-text-color: #9cb3c9;
+            --container-bg: rgba(17, 24, 39, 0.6);
+            --border-color: #1e293b;
+            --button-bg: #111827;
+            --primary-blue: #0066ff;
+            --footer-text: #4b5563;
+        }
+
+        /* Gündüz Teması Renkleri */
+        [data-theme="light"] {
+            --bg-color: #f3f4f6; /* Açık gri/beyaz arka plan */
+            --text-color: #111827; /* Koyu gri/siyah metin */
+            --sub-text-color: #4b5563;
+            --container-bg: rgba(255, 255, 255, 0.85);
+            --border-color: #e5e7eb;
+            --button-bg: #e5e7eb;
+            --primary-blue: #0056d6;
+            --footer-text: #9ca3af;
+        }
+
         body {
             margin: 0;
             height: 100vh;
@@ -12,12 +36,13 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            background-color: #0b0f19; /* Koyu lacivert/siyah arka plan */
-            color: #ffffff; /* Beyaz ana metin */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: system-ui, -apple-system, sans-serif;
             padding: 20px;
             box-sizing: border-box;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Üst alan (Sol logo, Sağ menü) */
@@ -26,7 +51,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 9999; /* Menünün her şeyin üstünde kalması için yükseltildi */
+            z-index: 9999;
             position: relative;
         }
         .logo img {
@@ -34,7 +59,7 @@
             width: auto;
             display: block;
             cursor: pointer;
-            filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.3)); /* Logoya hafif mavi parlama */
+            filter: drop-shadow(0 0 8px rgba(0, 102, 255, 0.3));
         }
         .nav-container {
             display: flex;
@@ -43,21 +68,40 @@
         }
         .nav-btn {
             text-decoration: none;
-            color: #9cb3c9; /* Açık mavi/gri yazı */
-            border: 1px solid #1e293b; /* Koyu lacivert çerçeve */
+            color: var(--sub-text-color);
+            border: 1px solid var(--border-color);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
             transition: all 0.2s;
             cursor: pointer;
-            background: #111827; /* Koyu siyah/mavi buton arka planı */
+            background: var(--button-bg);
             outline: none;
         }
         .nav-btn:hover, .nav-btn.active {
-            background-color: #0066ff; /* Parlak mavi hover ve aktif */
+            background-color: var(--primary-blue);
             color: #ffffff;
-            border-color: #0066ff;
+            border-color: var(--primary-blue);
             box-shadow: 0 0 12px rgba(0, 102, 255, 0.5);
+        }
+
+        /* Tema Değiştirme Butonu */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--sub-text-color);
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .theme-toggle:hover {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border-color: var(--primary-blue);
         }
 
         /* Açılır Menü (Dropdown) Kapsayıcısı */
@@ -70,17 +114,17 @@
             position: absolute;
             right: 0;
             top: 100%;
-            background-color: #111827;
+            background-color: var(--button-bg);
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 5px 0; /* İç boşluk eklenerek butonların oturması sağlandı */
+            padding: 5px 0;
             z-index: 10000;
             overflow: hidden;
         }
         .dropdown-content button {
-            color: #9cb3c9;
+            color: var(--sub-text-color);
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -93,11 +137,10 @@
             transition: all 0.2s;
         }
         .dropdown-content button:hover {
-            background-color: #0066ff;
+            background-color: var(--primary-blue);
             color: #ffffff;
         }
         
-        /* Hover durumunda menüyü göster ve fare geçişindeki boşluğu koru */
         .dropdown:hover .dropdown-content {
             display: block;
         }
@@ -129,17 +172,18 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 30px;
-            background: rgba(17, 24, 39, 0.6); /* Şeffaf koyu arka plan */
-            border: 1px solid #1e293b;
+            background: var(--container-bg);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
-            text-align: left; /* Yazıları sola dayar */
+            text-align: left;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
+            transition: background 0.3s, border-color 0.3s;
         }
 
         /* Sayfa 1 stili (Büyük Başlık için Özel Ayar) */
         #page1 .content-container {
-            text-align: center; /* Sadece ana sayfa başlığı ortada kalsın */
+            text-align: center;
             background: none;
             border: none;
             box-shadow: none;
@@ -149,7 +193,7 @@
             font-size: 10vw;
             font-weight: 900;
             letter-spacing: -2px;
-            color: #ffffff;
+            color: var(--text-color);
             text-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
             margin: 0;
         }
@@ -160,15 +204,15 @@
             font-weight: 900;
             margin-top: 0;
             margin-bottom: 20px;
-            color: #0066ff; /* Başlıklar parlak mavi */
+            color: var(--primary-blue);
         }
         .page p {
-            color: #9cb3c9;
+            color: var(--sub-text-color);
             line-height: 1.6;
             font-size: 16px;
         }
         
-        /* Görsel ve Video Ortalama Ayarı (Container içinde) */
+        /* Görsel ve Video Ortalama Ayarı */
         .media-wrapper {
             display: flex;
             justify-content: center;
@@ -180,7 +224,7 @@
             max-height: 55vh;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2);
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
         }
         
         /* YouTube iframe stili */
@@ -195,12 +239,68 @@
             height: 100%;
             border-radius: 8px;
             box-shadow: 0 4px 20px rgba(0, 102, 255, 0.2);
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= MOBİL UYUMLULUK ================= */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .nav-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .dropdown-content {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .content-container {
+                padding: 15px;
+                margin: 10px;
+                width: calc(100% - 20px);
+                box-sizing: border-box;
+            }
+
+            #page1 h1 {
+                font-size: 15vw;
+            }
+
+            .page h2 {
+                font-size: 2rem;
+            }
+
+            .page p {
+                font-size: 14px;
+            }
+
+            .page img.komik-resim {
+                max-height: 45vh;
+            }
         }
     </style>
 </head>
@@ -208,11 +308,9 @@
 
     <!-- Üst Başlık (Logo ve Menü) -->
     <header>
-        <!-- Logoya tıklandığında anasayfa (page1) açılır -->
         <div class="logo" onclick="showPage('page1')">
             <img src="logo.png" alt="Logo">
         </div>
-        <!-- Menü alanı -->
         <div class="nav-container">
             <button class="nav-btn" id="btn-page2" onclick="showPage('page2')">Gerçekten Komik</button>
             <button class="nav-btn" id="btn-page3" onclick="showPage('page3')">Bu da Çok İyi</button>
@@ -224,6 +322,18 @@
                     <button onclick="showPage('page-yonetim')">Yönetim Kurulu</button>
                 </div>
             </div>
+
+            <!-- Gece/Gündüz Modu Butonu (SVG İkonlu) -->
+            <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()" title="Temayı Değiştir">
+                <!-- Ay İkonu (Koyu Mod) -->
+                <svg id="moon-icon" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="display: none;">
+                    <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+                </svg>
+                <!-- Güneş İkonu (Açık Mod) -->
+                <svg id="sun-icon" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" style="display: none;">
+                    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -266,8 +376,8 @@
         <!-- YÖNETİM KURULU SAYFASI -->
         <div id="page-yonetim" class="page">
             <div class="content-container">
-                <p style="font-weight: bold; font-size: 18px; margin-bottom: 5px; color: #9cb3c9;">2026-2027</p>
-                <h2 style="font-size: 3.5rem; font-weight: 900; margin-top: 0; margin-bottom: 25px; color: #0066ff;">Yönetim Kurulu</h2>
+                <p style="font-weight: bold; font-size: 18px; margin-bottom: 5px; color: var(--sub-text-color);">2026-2027</p>
+                <h2 style="font-size: 3.5rem; font-weight: 900; margin-top: 0; margin-bottom: 25px; color: var(--primary-blue);">Yönetim Kurulu</h2>
                 
                 <p><strong>Başkan:</strong> Yiğitcan Keleş</p>
                 <p><strong>Başkan Yardımcısı:</strong> Metehan Baykuş</p>
@@ -277,7 +387,7 @@
                 <p><strong>Çaylaklar Atölyesi Sorumsuzu:</strong> Aydın Aydın</p>
                 <p><strong>Üye:</strong> Görkem Görkem, Kahraman Kahraman</p>
                 
-                <p style="font-weight: bold; font-size: 25px; margin-bottom: 5px; margin-top: 50px; color: #9cb3c9;">Kurucu Kurul</p>
+                <p style="font-weight: bold; font-size: 25px; margin-bottom: 5px; margin-top: 50px; color: var(--sub-text-color);">Kurucu Kurul</p>
                 <p><strong>Başkan:</strong> Taha Ercoşkun</p>
             </div>
         </div>
@@ -289,54 +399,49 @@
         
         <div style="display: flex; align-items: center; gap: 20px;">
             <!-- Instagram -->
-            <a href="https://www.instagram.com/bogazicikomedikulubu/" target="_blank" style="color: #9cb3c9; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+            <a href="https://instagram.com" target="_blank" style="color: var(--sub-text-color); transition: color 0.2s;" onmouseover="this.style.color='var(--primary-blue)'" onmouseout="this.style.color='var(--sub-text-color)'">
                 <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.444-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
                 </svg>
             </a>
-			
 
             <!-- Twitter / X -->
-            <a href="https://x.com" target="_blank" style="color: #9cb3c9; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+            <a href="https://x.com" target="_blank" style="color: var(--sub-text-color); transition: color 0.2s;" onmouseover="this.style.color='var(--primary-blue)'" onmouseout="this.style.color='var(--sub-text-color)'">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
                 </svg>
             </a>
 
-            <span style="color: #1e293b; user-select: none;">|</span>
+            <span style="color: var(--border-color); user-select: none;">|</span>
 
             <!-- E-posta -->
-            <a href="mailto:yk@bucomic.com" style="color: #9cb3c9; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+            <a href="mailto:yk@bucomic.com" style="color: var(--sub-text-color); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-blue)'" onmouseout="this.style.color='var(--sub-text-color)'">
                 yk@bucomic.com
             </a>
         </div>
 
-        <div style="font-size: 12px; color: #4b5563;">hiçbir hakkı saklı değildir bukomik 1993 C</div>
+        <div style="font-size: 12px; color: var(--footer-text);">hiçbir hakkı saklı değildir bukomik 1993 C</div>
     </footer>
 
-    <!-- Sayfa Geçişlerini Yöneten JavaScript -->
+    <!-- Sayfa Geçişleri ve Tema Yönetimi JavaScript'leri -->
     <script>
+        // --- 1. SAYFA GEÇİŞ SCRIPTI ---
         function showPage(pageId) {
-            // Tüm ana sayfaları gizle
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => {
                 page.classList.remove('active');
             });
 
-            // Sadece tıklanan sayfayı göster
             const selectedPage = document.getElementById(pageId);
             if (selectedPage) {
-                selectedPage.getElementById;
                 selectedPage.classList.add('active');
             }
 
-            // Üst menü butonlarındaki aktiflik sınıfını güncelle
             const buttons = document.querySelectorAll('.nav-container > .nav-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // Eğer açılan sayfa dropdown içindeyse Hakkında butonunu aktif yap
             const dropdownBtn = document.getElementById('btn-dropdown-hakkinda');
             if (pageId === 'page-yonetim') {
                 dropdownBtn.classList.add('active');
@@ -346,6 +451,39 @@
                 if (activeBtn) {
                     activeBtn.classList.add('active');
                 }
+            }
+        }
+
+        // --- 2. GECE/GÜNDÜZ MODU SCRIPTI ---
+        // Sayfa ilk yüklendiğinde hafızadaki temayı kontrol et
+        const currentTheme = localStorage.getItem('theme') || 'dark'; // Varsayılan: koyu tema
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        updateThemeIcons(currentTheme);
+
+        function toggleTheme() {
+            const htmlTag = document.documentElement;
+            let targetTheme = 'dark';
+
+            if (htmlTag.getAttribute('data-theme') === 'dark') {
+                targetTheme = 'light';
+            }
+
+            htmlTag.setAttribute('data-theme', targetTheme);
+            localStorage.setItem('theme', targetTheme); // Seçimi kaydet
+            updateThemeIcons(targetTheme);
+        }
+
+        // Doğru ikonu göstermek için fonksiyon
+        function updateThemeIcons(theme) {
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+
+            if (theme === 'light') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block'; // Açık moddayken "Karanlık moda geçmek için" ay göster
+            } else {
+                sunIcon.style.display = 'block'; // Koyu moddayken "Aydınlık moda geçmek için" güneş göster
+                moonIcon.style.display = 'none';
             }
         }
     </script>
