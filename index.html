@@ -198,12 +198,6 @@
             border: 1px solid #1e293b;
         }
 
-        footer {
-            font-size: 12px;
-            color: #4b5563; /* Koyu gri alt yazı */
-            z-index: 10;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -228,7 +222,6 @@
                 <button class="nav-btn" id="btn-dropdown-hakkinda">Hakkında</button>
                 <div class="dropdown-content">
                     <button onclick="showPage('page-yonetim')">Yönetim Kurulu</button>
-                    <button onclick="showPage('page-letisim')">İletişim</button>
                 </div>
             </div>
         </div>
@@ -240,7 +233,7 @@
         <!-- SAYFA 1 (Ana Sayfa) -->
         <div id="page1" class="page active">
             <div class="content-container">
-				<img src="bukomik.jpeg" alt="Merkez Logo" style="max-width: 250px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.4));">
+                <img src="bukomik.jpeg" alt="Merkez Logo" style="max-width: 250px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.4));">
                 <h1>taha ercoskun</h1>
             </div>
         </div>
@@ -273,33 +266,53 @@
         <!-- YÖNETİM KURULU SAYFASI -->
         <div id="page-yonetim" class="page">
             <div class="content-container">
+                <p style="font-weight: bold; font-size: 18px; margin-bottom: 5px; color: #9cb3c9;">2026-2027</p>
                 <h2 style="font-size: 3.5rem; font-weight: 900; margin-top: 0; margin-bottom: 25px; color: #0066ff;">Yönetim Kurulu</h2>
-				<p style="font-weight: bold; font-size: 18px; margin-bottom: 5px; color: #9cb3c9;">2026-2027</p>
+                
                 <p><strong>Başkan:</strong> Yiğitcan Keleş</p>
                 <p><strong>Başkan Yardımcısı:</strong> Metehan Baykuş</p>
                 <p><strong>Yazman:</strong> Metehan Baykuş</p>
-				<p><strong>Sayman:</strong> Yiğitcan Keleş</p>
-				<p><strong>Sosyal Medya Sorumlusu:</strong> Nisa Nisa</p>
-				<p><strong>Çaylaklar Atölyesi Sorumsuzu:</strong> Aydın Aydın</p>
-				<p><strong>Üye:</strong> Görkem Görkem, Kahraman Kahraman</p>
-				<p style="font-weight: bold; font-size: 25px; margin-bottom: 5px; margin-top: 50px; color: #9cb3c9;">Kurucu Kurul</p>
-				<p><strong>Başkan:</strong> Taha Ercoşkun</p>
-            </div>
-        </div>
-
-        <!-- İLETİŞİM SAYFASI -->
-        <div id="page-iletisim" class="page">
-            <div class="content-container">
-                <h2>İletişim</h2>
-                <p>Bizimle iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz:</p>
-                <p><strong>E-posta:</strong> yk@bucomic.com</p>
+                <p><strong>Sayman:</strong> Yiğitcan Keleş</p>
+                <p><strong>Sosyal Medya Sorumlusu:</strong> Nisa Nisa</p>
+                <p><strong>Çaylaklar Atölyesi Sorumsuzu:</strong> Aydın Aydın</p>
+                <p><strong>Üye:</strong> Görkem Görkem, Kahraman Kahraman</p>
+                
+                <p style="font-weight: bold; font-size: 25px; margin-bottom: 5px; margin-top: 50px; color: #9cb3c9;">Kurucu Kurul</p>
+                <p><strong>Başkan:</strong> Taha Ercoşkun</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Alt Bilgi -->
-    <footer>hiçbir hakkı saklı değildir bukomik 1993 C</footer>
+    <!-- Alt Bilgi, İletişim & Sosyal Medya -->
+    <footer style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 40px; padding-bottom: 20px;">
+        
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/bogazicikomedikulubu/" target="_blank" style="color: #9cb3c9; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.444-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+                </svg>
+            </a>
+			
+
+            <!-- Twitter / X -->
+            <a href="https://x.com" target="_blank" style="color: #9cb3c9; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                </svg>
+            </a>
+
+            <span style="color: #1e293b; user-select: none;">|</span>
+
+            <!-- E-posta -->
+            <a href="mailto:yk@bucomic.com" style="color: #9cb3c9; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='#0066ff'" onmouseout="this.style.color='#9cb3c9'">
+                yk@bucomic.com
+            </a>
+        </div>
+
+        <div style="font-size: 12px; color: #4b5563;">hiçbir hakkı saklı değildir bukomik 1993 C</div>
+    </footer>
 
     <!-- Sayfa Geçişlerini Yöneten JavaScript -->
     <script>
@@ -313,6 +326,7 @@
             // Sadece tıklanan sayfayı göster
             const selectedPage = document.getElementById(pageId);
             if (selectedPage) {
+                selectedPage.getElementById;
                 selectedPage.classList.add('active');
             }
 
@@ -324,7 +338,7 @@
             
             // Eğer açılan sayfa dropdown içindeyse Hakkında butonunu aktif yap
             const dropdownBtn = document.getElementById('btn-dropdown-hakkinda');
-            if (pageId === 'page-yonetim' || pageId === 'page-iletisim') {
+            if (pageId === 'page-yonetim') {
                 dropdownBtn.classList.add('active');
             } else {
                 dropdownBtn.classList.remove('active');
